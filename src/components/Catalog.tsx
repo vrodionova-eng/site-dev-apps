@@ -11,7 +11,7 @@ function AppCard({ app }: { app: App }) {
   const { openOrder } = useOrderModal();
 
   return (
-    <div className="row-span-8 grid grid-rows-subgrid gap-y-0 rounded-2xl border border-slate-200 bg-white p-6 hover:shadow-xl hover:shadow-slate-100 hover:border-sky-200 transition-all">
+    <div className="row-span-6 grid grid-rows-subgrid gap-y-0 rounded-2xl border border-slate-200 bg-white p-6 hover:shadow-xl hover:shadow-slate-100 hover:border-sky-200 transition-all">
       <div className="flex items-start justify-between gap-3">
         <span className="inline-block rounded-full bg-sky-50 text-sky-700 text-xs font-medium px-3 py-1">
           {app.category}
@@ -25,9 +25,9 @@ function AppCard({ app }: { app: App }) {
         {app.tagline}
       </p>
 
-      <ul className="row-span-3 grid grid-rows-subgrid gap-y-0">
+      <ul className="space-y-1.5 self-start">
         {app.features.map((f) => (
-          <li key={f} className="flex items-start gap-2 pb-1.5 text-xs text-slate-500">
+          <li key={f} className="flex items-start gap-2 text-xs text-slate-500">
             <span className="shrink-0 text-emerald-500">✓</span>
             <span>{f}</span>
           </li>
@@ -97,7 +97,7 @@ export default function Catalog() {
 
         <div className="mt-10 grid sm:grid-cols-2 lg:grid-cols-3 gap-5">
           {APPS.map((app, i) => (
-            <Reveal key={app.id} delay={(i % 3) * 0.07} className="row-span-8 grid grid-rows-subgrid gap-y-0">
+            <Reveal key={app.id} delay={(i % 3) * 0.07} className="row-span-6 grid grid-rows-subgrid gap-y-0">
               <AppCard app={app} />
             </Reveal>
           ))}
