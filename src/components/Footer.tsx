@@ -1,42 +1,25 @@
+"use client";
+
 import { CONTACTS } from "@/lib/config";
 import { APPS } from "@/lib/apps";
 import { TelegramIcon } from "./TelegramIcon";
 import Link from "next/link";
+import { useOrderModal } from "./OrderModal";
 
 const PREFIX = process.env.NEXT_PUBLIC_PROXY_PREFIX ?? "";
 
-const COLUMNS = [
-  {
-    title: "Приложения",
-    links: APPS.map((a) => ({ label: a.name, href: a.id === "pult" ? `${PREFIX}/demo/pult` : `#catalog` })),
-  },
-  {
-    title: "Внедрение",
-    links: [
-      { label: "Техническое задание", href: "#cta" },
-      { label: "Настройка CRM", href: "#cta" },
-      { label: "Обучение", href: "#cta" },
-      { label: "Техподдержка", href: "#cta" },
-    ],
-  },
-  {
-    title: "Интеграция",
-    links: [
-      { label: "Соцсети", href: "#custom" },
-      { label: "Сайт", href: "#custom" },
-      { label: "Телефония", href: "#custom" },
-    ],
-  },
-  {
-    title: "Компания",
-    links: [
-      { label: "О компании", href: "https://crm.by/", external: true },
-      { label: "Кейсы", href: "#catalog" },
-    ],
-  },
+const INTEGRATIONS = [
+  "Битрикс", "Excel / Google Sheets", "Telegram", "Сайт", "Соцсети", "Телефония", "REST API",
+];
+
+const APP_COLUMNS = [
+  APPS.slice(0, Math.ceil(APPS.length / 2)),
+  APPS.slice(Math.ceil(APPS.length / 2)),
 ];
 
 export default function Footer() {
+  const { openOrder } = useOrderModal();
+
   return (
     <footer id="contacts" className="bg-slate-900 text-slate-400 py-14">
       <div className="max-w-6xl mx-auto px-4">
@@ -68,26 +51,57 @@ export default function Footer() {
             </div>
           </div>
 
-          {COLUMNS.map((col) => (
-            <div key={col.title}>
-              <p className="text-sm font-semibold text-slate-200 mb-3">{col.title}</p>
-              <ul className="space-y-2 text-sm">
-                {col.links.map((l) => (
-                  <li key={l.label}>
-                    {"external" in l && l.external ? (
-                      <a href={l.href} target="_blank" rel="noopener noreferrer" className="hover:text-white transition-colors">
-                        {l.label}
-                      </a>
-                    ) : (
-                      <Link href={l.href} className="hover:text-white transition-colors">
-                        {l.label}
-                      </Link>
-                    )}
-                  </li>
-                ))}
-              </ul>
+          <div className="md:col-span-2">
+            <p className="text-sm font-semibold text-slate-200 mb-3">Приложения</p>
+            <div className="grid grid-cols-2 gap-6">
+              {APP_COLUMNS.map((apps, index) => (
+                <ul key={index} className="space-y-2 text-sm min-w-0">
+                  {apps.map((app) => (
+                    <li key={app.id}>
+                      {app.demoUnavailable ? (
+                        <span>{app.name} (скоро)</span>
+                      ) : (
+                        <Link href={`${PREFIX}/demo/${app.id}`} className="hover:text-white transition-colors">
+                          {app.name}
+                        </Link>
+                      )}
+                    </li>
+                  ))}
+                </ul>
+              ))}
             </div>
-          ))}
+          </div>
+
+          <div>
+            <p className="text-sm font-semibold text-slate-200 mb-3">Интеграции</p>
+            <ul className="space-y-2 text-sm">
+              {INTEGRATIONS.map((integration) => (
+                <li key={integration}>
+                  <button
+                    type="button"
+                    onClick={() => openOrder(`Интеграция: ${integration}`)}
+                    className="text-left hover:text-white transition-colors cursor-pointer"
+                  >
+                    {integration}
+                  </button>
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          <div>
+            <p className="text-sm font-semibold text-slate-200 mb-3">Компания</p>
+            <ul className="space-y-2 text-sm">
+              <li>
+                <a href="https://crm.by/" target="_blank" rel="noopener noreferrer" className="hover:text-white transition-colors">
+                  О компании
+                </a>
+              </li>
+              <li>
+                <Link href="#catalog" className="hover:text-white transition-colors">Кейсы</Link>
+              </li>
+            </ul>
+          </div>
         </div>
 
         <div className="mt-12 pt-6 border-t border-slate-800 text-xs flex flex-col sm:flex-row justify-between gap-2">

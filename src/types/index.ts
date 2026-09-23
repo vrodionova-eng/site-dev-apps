@@ -1,6 +1,7 @@
 // Тип приложения из каталога решений
 export interface App {
   id: string; // slug для роута /demo/[app-id]
+  demoUnavailable?: boolean;
   name: string;
   tagline: string; // короткое описание (2-3 предложения)
   category: string;

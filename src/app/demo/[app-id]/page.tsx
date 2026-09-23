@@ -6,12 +6,12 @@ import DemoClient from "@/components/demo/DemoClient";
 
 // Демо-страницы для всех приложений, кроме «Пульта руководителя»
 // (у него отдельный дашборд по адресу /demo/pult)
-// и SyncPoint24 (макет будет готов позже).
+// и приложений, демо которых ещё готовятся.
 export const dynamic = "force-dynamic";
 export const revalidate = 0;
 
 export function generateStaticParams() {
-  return APPS.filter((a) => a.id !== "pult" && a.id !== "syncpoint").map((a) => ({ "app-id": a.id }));
+  return APPS.filter((a) => a.id !== "pult" && !a.demoUnavailable).map((a) => ({ "app-id": a.id }));
 }
 
 export async function generateMetadata({
@@ -27,7 +27,7 @@ export default async function DemoPage({
 }: PageProps<"/demo/[app-id]">) {
   const { "app-id": id } = await params;
   const app = APPS.find((a) => a.id === id);
-  if (!app || app.id === "pult" || app.id === "syncpoint") notFound();
+  if (!app || app.id === "pult" || app.demoUnavailable) notFound();
 
   const mock = APP_DEMOS[app.id];
 

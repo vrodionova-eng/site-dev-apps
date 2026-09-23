@@ -54,7 +54,7 @@ function AppCard({ app }: { app: App }) {
       </div>
 
       <div className="mt-5 flex gap-2">
-        {app.id === "syncpoint" ? (
+        {app.demoUnavailable ? (
           <span
             className="flex-1 rounded-lg bg-slate-100 text-slate-400 text-sm font-semibold py-2.5 text-center cursor-not-allowed select-none"
             title="Демо готовится"
