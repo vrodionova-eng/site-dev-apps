@@ -11,7 +11,7 @@ function AppCard({ app }: { app: App }) {
   const { openOrder } = useOrderModal();
 
   return (
-    <div className="h-full flex flex-col rounded-2xl border border-slate-200 bg-white p-6 hover:shadow-xl hover:shadow-slate-100 hover:border-sky-200 transition-all">
+    <div className="row-span-8 grid grid-rows-subgrid gap-y-0 rounded-2xl border border-slate-200 bg-white p-6 hover:shadow-xl hover:shadow-slate-100 hover:border-sky-200 transition-all">
       <div className="flex items-start justify-between gap-3">
         <span className="inline-block rounded-full bg-sky-50 text-sky-700 text-xs font-medium px-3 py-1">
           {app.category}
@@ -21,15 +21,15 @@ function AppCard({ app }: { app: App }) {
       <h3 className="mt-4 font-bold text-slate-900 text-lg leading-snug">
         {app.name}
       </h3>
-      <p className="mt-2 text-sm text-slate-600 leading-relaxed flex-1">
+      <p className="mt-2 mb-4 text-sm text-slate-600 leading-relaxed">
         {app.tagline}
       </p>
 
-      <ul className="mt-4 space-y-1.5">
+      <ul className="row-span-3 grid grid-rows-subgrid gap-y-0">
         {app.features.map((f) => (
-          <li key={f} className="flex items-center gap-2 text-xs text-slate-500">
-            <span className="text-emerald-500">✓</span>
-            {f}
+          <li key={f} className="flex items-start gap-2 pb-1.5 text-xs text-slate-500">
+            <span className="shrink-0 text-emerald-500">✓</span>
+            <span>{f}</span>
           </li>
         ))}
       </ul>
@@ -97,7 +97,7 @@ export default function Catalog() {
 
         <div className="mt-10 grid sm:grid-cols-2 lg:grid-cols-3 gap-5">
           {APPS.map((app, i) => (
-            <Reveal key={app.id} delay={(i % 3) * 0.07}>
+            <Reveal key={app.id} delay={(i % 3) * 0.07} className="row-span-8 grid grid-rows-subgrid gap-y-0">
               <AppCard app={app} />
             </Reveal>
           ))}

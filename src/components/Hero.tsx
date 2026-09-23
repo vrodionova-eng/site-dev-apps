@@ -62,12 +62,12 @@ export default function Hero() {
               </a>
             </div>
 
-            <div className="mt-8 grid grid-cols-3 gap-3 max-w-lg">
+            <div className="mt-8 grid grid-cols-1 min-[400px]:grid-cols-2 sm:grid-cols-3 gap-4 max-w-lg">
               {ADVANTAGES.map((a) => (
-                <div key={a.title} className="flex flex-col">
+                <div key={a.title} className="flex min-w-0 flex-col">
                   <span className="text-lg leading-none h-6 flex items-center">{a.icon}</span>
-                  <p className="text-sm font-bold text-slate-900 mt-1.5 leading-snug whitespace-nowrap">{a.title}</p>
-                  <p className="text-xs text-slate-500 mt-1 leading-snug whitespace-pre-line">{a.note}</p>
+                  <p className="text-sm font-bold text-slate-900 mt-1.5 leading-snug">{a.title}</p>
+                  <p className="text-xs text-slate-500 mt-1 leading-snug whitespace-pre-line break-words">{a.note}</p>
                 </div>
               ))}
             </div>
